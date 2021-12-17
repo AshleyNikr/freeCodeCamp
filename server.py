@@ -8,7 +8,7 @@ import socket
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # gets the host
-host = socket.gethostbyname()
+host = socket.gethostname()
 # gets the port
 port = 444
 
@@ -18,12 +18,12 @@ serversocket.bind((host, port))
 serversocket.listen(3)
 
 while True:
-    # unpacks the clientsocket and the address
+    # Starting the connection
     clientsocket, address = serversocket.accept()
-    print("Recieve connection from " % str(address))
+    print("Recieve connection from %s " % str(address))
 
     message = "Hello! Thank you for connecting to the server" + "\r\n"
-    # sends an acknowledgment message to the client
-    clientsocket.send(message)
+    # sends an acknowledgment message to the client, must be encoded
+    clientsocket.send(message.encode('ascii'))
 
     clientsocket.close()
